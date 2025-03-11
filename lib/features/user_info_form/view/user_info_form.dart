@@ -8,7 +8,8 @@ import 'package:flutterflow_task/core/extensions/context.dart';
 import 'package:flutterflow_task/core/helpers/alerts.dart';
 import 'package:flutterflow_task/core/services/validators.dart';
 import 'package:flutterflow_task/di.dart';
-import 'package:flutterflow_task/features/create_order/cubit/products_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/order_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/products_cubit.dart';
 import 'package:flutterflow_task/features/create_order/view/create_order_screen.dart';
 import 'package:flutterflow_task/features/general_widgets/main_button.dart';
 import 'package:flutterflow_task/features/general_widgets/main_text_field.dart';
@@ -135,9 +136,13 @@ class _UserInfoFormState extends State<UserInfoForm> {
                   if (_formKey.currentState?.validate() != true || !SessionData.inst.userInfo.isValid()) {
                     Alerts.showToast('Please Fill All Fields');
                   } else {
-                    context.myPush(BlocProvider(
-                      create: (context) => di<ProductsCubit>(),
-                      child: const CreateOrderScreen()));
+                    context.myPush(MultiBlocProvider(
+                      providers: [
+                        BlocProvider(create: (context) => di<ProductsCubit>()),
+                        BlocProvider(create: (context) => di<OrderCubit>()),
+                      ],
+                      child: const CreateOrderScreen(),
+                    ));
                   }
                 },
               ),

@@ -8,8 +8,7 @@ export 'package:flutterflow_task/config/theming/text_styles.dart';
 
 class MyTheme {
   static ThemeData get mainTheme => ThemeData(
-        dialogBackgroundColor: Co.background,
-        fontFamily: 'cairo',
+        fontFamily: 'Poppins',
         scaffoldBackgroundColor: Co.background,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
@@ -55,6 +54,7 @@ class MyTheme {
             menuStyle: MenuStyle(
                 shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
                 backgroundColor: WidgetStatePropertyAll(Co.background))),
+        dialogBackgroundColor: Co.background,
         dialogTheme: DialogTheme(
             backgroundColor: Co.background,
             insetPadding: const EdgeInsets.symmetric(horizontal: 15),

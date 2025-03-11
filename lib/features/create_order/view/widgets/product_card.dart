@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_task/config/theming/theming.dart';
-import 'package:flutterflow_task/features/create_order/data/product_model.dart';
+import 'package:flutterflow_task/core/extensions/irretable.dart';
+import 'package:flutterflow_task/core/services/helpers.dart';
+import 'package:flutterflow_task/features/create_order/cubits/order_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/order_states.dart';
+import 'package:flutterflow_task/features/create_order/data/models/cart_item.dart';
+import 'package:flutterflow_task/features/create_order/data/models/product_model.dart';
 import 'package:flutterflow_task/features/general_widgets/add_increment_switcher.dart';
 import 'package:flutterflow_task/features/general_widgets/custom_network_image.dart';
 import 'package:flutterflow_task/features/general_widgets/spacing.dart';
@@ -10,6 +16,7 @@ class ProductCard extends StatelessWidget {
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<OrderCubit>();
     return SizedBox(
       width: 200,
       child: DecoratedBox(
@@ -33,6 +40,7 @@ class ProductCard extends StatelessWidget {
                 child: CustomNetworkImage(
                   product.image ?? '',
                   fit: BoxFit.cover,
+                  isInsta: true,
                   width: 180,
                 ),
               ),
@@ -60,15 +68,30 @@ class ProductCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('\$${product.price}', style: TStyle.blackSemi(18)),
-                        AddIncrementSwitcher(
-                          quantity: 2,
-                          isExists: false,
-                          onIncrement: () {
-                            return true;
+                        Text(Helpers.getProperPrice(product.price ?? 0), style: TStyle.blackSemi(18)),
+                        BlocBuilder<OrderCubit, OrderStates>(
+                          buildWhen: (previous, current) {
+                            if (current is UpdateItemState && current.id == product.id) {
+                              return true;
+                            }
+                            return false;
                           },
-                          onDecrement: () {
-                            return true;
+                          builder: (context, state) {
+                            final item = cubit.cartItems.firstWhereOrNull((e) => e.id == product.id);
+                            return AddIncrementSwitcher(
+                              quantity: item?.quantity ?? 0,
+                              isExists: item != null,
+                              onIncrement: () {
+                                if (item == null) {
+                                  cubit.addCartItem(CartItem.fromProduct(product));
+                                  return true;
+                                }
+                                return cubit.itemQtyChange(product.id, true);
+                              },
+                              onDecrement: () {
+                                return cubit.itemQtyChange(product.id, false);
+                              },
+                            );
                           },
                         ),
                       ],

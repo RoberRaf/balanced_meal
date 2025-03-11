@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterflow_task/config/app_consts.dart';
 import 'package:flutterflow_task/config/theming/text_styles.dart';
-import 'package:flutterflow_task/features/create_order/data/product_model.dart';
+import 'package:flutterflow_task/features/create_order/data/models/product_model.dart';
 import 'package:flutterflow_task/features/create_order/view/widgets/product_card.dart';
 import 'package:flutterflow_task/features/general_widgets/spacing.dart';
 

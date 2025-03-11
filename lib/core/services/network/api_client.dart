@@ -27,8 +27,8 @@ class ApiClient {
     }
   }
 
-  switchDomain() {
-    _dio.options.baseUrl = _dio.options.baseUrl == mainDomain ? secondDomain : mainDomain;
+  void switchDomain(bool isSecondDomain) {
+    _dio.options.baseUrl = isSecondDomain ? secondDomain : mainDomain;
   }
 
   Future<({Response response, ErrorModel? error})> get({

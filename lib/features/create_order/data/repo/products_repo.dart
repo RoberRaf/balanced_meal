@@ -1,8 +1,9 @@
 import 'package:flutterflow_task/core/services/network/api_client.dart';
 import 'package:flutterflow_task/core/services/network/error_model.dart';
-import 'package:flutterflow_task/features/create_order/data/product_model.dart';
+import 'package:flutterflow_task/features/create_order/data/models/product_model.dart';
 
 class ProductsRepo {
+  ProductsRepo._();
   static Future<(List<ProductModel>?, ErrorModel?)> getProducts(String endpoint) async {
     final resp = await ApiClient().get(endpoint: endpoint);
     if (resp.error == null) {

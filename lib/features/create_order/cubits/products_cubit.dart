@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterflow_task/core/services/network/endpoints.dart';
 import 'package:flutterflow_task/core/services/network/error_model.dart';
-import 'package:flutterflow_task/features/create_order/cubit/products_states.dart';
-import 'package:flutterflow_task/features/create_order/data/product_model.dart';
-import 'package:flutterflow_task/features/create_order/data/products_repo.dart';
+import 'package:flutterflow_task/features/create_order/cubits/products_states.dart';
+import 'package:flutterflow_task/features/create_order/data/models/product_model.dart';
+import 'package:flutterflow_task/features/create_order/data/repo/products_repo.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductInitialState());

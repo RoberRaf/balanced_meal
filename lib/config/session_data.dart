@@ -5,5 +5,5 @@ class SessionData {
   static final _inst = SessionData._();
   static SessionData get inst => _inst;
 
-  final userInfo = UserInfoModel();
+  var userInfo = UserInfoModel();
 }

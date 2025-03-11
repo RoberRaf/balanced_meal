@@ -31,6 +31,6 @@ abstract class Helpers {
   static String getProperPrice(num price, {bool showCurrency = true}) {
     final isInt = price % 1 == 0;
     final parsedPrice = ((isInt ? price.toStringAsFixed(0) : price.toStringAsFixed(2)));
-    return '${showCurrency ? 'EGP' : ''} $parsedPrice';
+    return '${showCurrency ? '\$' : ''}$parsedPrice';
   }
 }

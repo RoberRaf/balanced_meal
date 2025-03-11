@@ -1,12 +1,12 @@
 class ProductModel {
-  int? id;
+  late int id;
   String? foodName;
   int? calories;
   String? image;
   double? price;
 
   ProductModel({
-    this.id,
+    required this.id,
     this.foodName,
     this.calories,
     this.image,

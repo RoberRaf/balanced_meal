@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterflow_task/config/app_consts.dart';
 import 'package:flutterflow_task/config/theming/app_colors.dart';
 import 'package:flutterflow_task/core/resources/fakers.dart';
-import 'package:flutterflow_task/features/create_order/cubit/products_cubit.dart';
-import 'package:flutterflow_task/features/create_order/cubit/products_states.dart';
+import 'package:flutterflow_task/features/create_order/cubits/products_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/products_states.dart';
 import 'package:flutterflow_task/features/create_order/view/widgets/category_widget.dart';
+import 'package:flutterflow_task/features/create_order/view/widgets/order_footer_widget.dart';
 import 'package:flutterflow_task/features/general_widgets/failed_widget.dart';
-import 'package:flutterflow_task/features/general_widgets/main_button.dart';
 import 'package:flutterflow_task/features/general_widgets/spacing.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -53,6 +52,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
             children: [
               Expanded(
                 child: ListView(
+                  padding: EdgeInsets.only(top: 24),
                   children: [
                     CategoryWidget(
                       catName: 'Vegetables',
@@ -71,11 +71,7 @@ class _CreateOrderScreenState extends State<CreateOrderScreen> {
                   ],
                 ),
               ),
-              MainButton(
-                text: 'Next',
-                margin: AppConsts.defaultHorPadding,
-                ontap: () {},
-              ),
+             OrderFooterWidget()
             ],
           ),
         );

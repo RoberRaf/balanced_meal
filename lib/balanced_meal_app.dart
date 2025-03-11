@@ -7,21 +7,15 @@ class BalancedMealApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SharedPreferences.getInstance().then((value) {
-    //   value.clear();
-    // });
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
       child: MaterialApp(
         title: "Task App",
         theme: MyTheme.mainTheme,
         navigatorObservers: [AppConsts.routeObserver],
-        themeMode: ThemeMode.light, // context.read<SettingsCubit>().isLight ? ThemeMode.light : ThemeMode.dark,
+        themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        // initialRoute: Routes.splashScreen,
-        // home: const SplashScreen(),
         navigatorKey: AppConsts.navigatorKey,
-        // onGenerateRoute: RouteGenerator.onGenerateRoute,
         home: const HomeScreen(),
       ),
     );

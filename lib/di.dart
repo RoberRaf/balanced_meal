@@ -1,5 +1,6 @@
 import 'package:flutterflow_task/core/services/network/api_client.dart';
-import 'package:flutterflow_task/features/create_order/cubit/products_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/order_cubit.dart';
+import 'package:flutterflow_task/features/create_order/cubits/products_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,4 +14,5 @@ Future init() async {
   await di.getAsync<SharedPreferences>();
   // Cubits
   di.registerFactory<ProductsCubit>(() => ProductsCubit());
+  di.registerFactory<OrderCubit>(() => OrderCubit());
 }

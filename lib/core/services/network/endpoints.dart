@@ -5,6 +5,6 @@ class Endpoints {
   static const meat = 'meat';
 
   ///
-  static const createOrder = 'createOrder';
+  static const createOrder = 'placeOrder';
   
 }

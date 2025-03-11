@@ -64,7 +64,6 @@ class OrderCubit extends Cubit<OrderStates> {
   int totalCal = 0;
   int calculateTotalCalories() {
     totalCal = cartItems.fold(0, (previousValue, e) => previousValue + (e.totalCalories()));
-    print("totalCal: $totalCal");
     emit(CaloriesUpdatedState(totalCal));
     return totalCal;
   }
@@ -77,7 +76,6 @@ class OrderCubit extends Cubit<OrderStates> {
 
   void updateCalColor() {
     final calRatio = selectedCalRatio();
-    print("calRatio: $calRatio");
     if (calRatio > 1.1) return emit(ColorUpdatedState(Colors.red));
     if (calRatio > 0.9) return emit(ColorUpdatedState(Colors.green));
     if (calRatio > 0.45) return emit(ColorUpdatedState(Colors.yellow));

@@ -101,7 +101,7 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/Poppins.ttf
+        - asset: assets/fonts/Poppins.ttf
 
 flutter_assets:
   assets_path: assets/

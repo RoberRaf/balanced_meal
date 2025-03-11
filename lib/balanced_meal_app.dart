@@ -12,7 +12,6 @@ class BalancedMealApp extends StatelessWidget {
       child: MaterialApp(
         title: "Task App",
         theme: MyTheme.mainTheme,
-        navigatorObservers: [AppConsts.routeObserver],
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
         navigatorKey: AppConsts.navigatorKey,

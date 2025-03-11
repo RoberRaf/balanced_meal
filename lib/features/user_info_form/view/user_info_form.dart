@@ -5,7 +5,6 @@ import 'package:flutterflow_task/config/session_data.dart';
 import 'package:flutterflow_task/config/theming/app_colors.dart';
 import 'package:flutterflow_task/config/theming/text_styles.dart';
 import 'package:flutterflow_task/core/extensions/context.dart';
-import 'package:flutterflow_task/core/helpers/alerts.dart';
 import 'package:flutterflow_task/core/services/validators.dart';
 import 'package:flutterflow_task/di.dart';
 import 'package:flutterflow_task/features/create_order/cubits/order_cubit.dart';
@@ -14,6 +13,7 @@ import 'package:flutterflow_task/features/create_order/view/create_order_screen.
 import 'package:flutterflow_task/features/general_widgets/main_button.dart';
 import 'package:flutterflow_task/features/general_widgets/main_text_field.dart';
 import 'package:flutterflow_task/features/general_widgets/spacing.dart';
+import 'package:flutterflow_task/features/user_info_form/data/user_info_model.dart';
 import 'package:flutterflow_task/features/user_info_form/view/widgets/gender_selection_widget.dart';
 
 class UserInfoForm extends StatefulWidget {
@@ -32,6 +32,12 @@ class _UserInfoFormState extends State<UserInfoForm> {
 
   _onChangeFields() {
     isBtnEnabled.value = SessionData.inst.userInfo.isValid();
+  }
+
+@override
+  void initState() {
+    SessionData.inst.userInfo = UserInfoModel();
+    super.initState();
   }
 
   @override
@@ -80,7 +86,9 @@ class _UserInfoFormState extends State<UserInfoForm> {
                       controller: weightController,
                       hintText: 'Enter your weight',
                       inputFormatters: FilteringTextInputFormatter.digitsOnly,
-                      validator: Validators.notEmpty,
+                      validator: (v) {
+                        return Validators.withinRange(v, 30, 300);
+                      },
                       onChange: (p0) {
                         SessionData.inst.userInfo.weight = int.tryParse(p0);
                         _onChangeFields();
@@ -94,7 +102,9 @@ class _UserInfoFormState extends State<UserInfoForm> {
                     ),
                     MainTextField(
                       controller: heightController,
-                      validator: Validators.notEmpty,
+                      validator: (v) {
+                        return Validators.withinRange(v, 30, 250);
+                      },
                       hintText: 'Enter your Height',
                       inputFormatters: FilteringTextInputFormatter.digitsOnly,
                       onChange: (p0) {
@@ -114,7 +124,9 @@ class _UserInfoFormState extends State<UserInfoForm> {
                     MainTextField(
                       controller: ageController,
                       inputFormatters: FilteringTextInputFormatter.digitsOnly,
-                      validator: Validators.notEmpty,
+                      validator: (v) {
+                        return Validators.withinRange(v, 5, 120);
+                      },
                       onChange: (p0) {
                         SessionData.inst.userInfo.age = int.tryParse(p0);
                         _onChangeFields();
@@ -134,7 +146,7 @@ class _UserInfoFormState extends State<UserInfoForm> {
                 margin: AppConsts.defaultHorPadding,
                 ontap: () {
                   if (_formKey.currentState?.validate() != true || !SessionData.inst.userInfo.isValid()) {
-                    Alerts.showToast('Please Fill All Fields');
+                    return;
                   } else {
                     context.myPush(MultiBlocProvider(
                       providers: [
